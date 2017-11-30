@@ -2,24 +2,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<head>
+<h:head>
 	<title>NETGIFS - Main</title>
-</head>
+</h:head>
 
-<body>
-	<h:outputLabel value="Main Page" />
-	<br/>
-	<a href="watch.xhtml">Watch</a>
-	<br/>
-	<a href="../user/preferences.xhtml">Preferences</a>
-	<br/>
-	<a href="../admin/formgif.xhtml">Gifs</a>
-	<br/>
-	<a href="../admin/formsession.xhtml">Session</a>
-	<br/>
-	<a href="../admin/formuser.xhtml">User</a>
-</body>
+<h:body>
+<div class="container">
+<header>
+   <h1>NETGIFS - Main Page</h1>
+   <h:outputText value="#{userBean.user.name}" />
+   <h:commandButton value="Logout" action="#{userBean.logout}"/>
+</header>	
+<nav>
+  <ul>
+    <li><a href="watch.xhtml">Watch</a></li>
+    <li><a href="../user/preferences.xhtml">Preferences</a></li>
+    <li><a href="../admin/formgif.xhtml">Gifs</a></li>
+    <li><a href="../admin/formsession.xhtml">Session</a></li>
+    <li><a href="../admin/formuser.xhtml">User</a></li>
+  </ul>
+  <hr></hr>
+  <ul>
+    <c:forEach var="session" items="#{mainBean.sessions}">
+      <li><h:link value="#{session.description}" outcome="main" /></li>
+    </c:forEach>
+  </ul>
+</nav>
+<article>
+	<h:outputText value="#{mainBean.selectedSession.description}"/>
+	<hr></hr>
+	<ui:repeat value="#{mainBean.selectedSession.gifs}" var="g">
+	  <h:link value="#{g.description}" outcome="gif" >
+        <f:param name="gifId" value="#{g.id}" />
+      </h:link>
+      <br></br>
+    </ui:repeat>
+    <hr></hr>
+</article>
+<footer>Fiap 30SCJ</footer>
+</div>
+</h:body>
 
 </html>

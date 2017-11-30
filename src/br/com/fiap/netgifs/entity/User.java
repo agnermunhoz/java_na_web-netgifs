@@ -21,7 +21,7 @@ public class User  implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="USER-ID")
+	@Column(name="USERID")
 	private int id;
 	@Column(name="LOGIN")
 	private String login;
@@ -79,6 +79,10 @@ public class User  implements Serializable {
 	}
 	public void setFavorites(List<Favorite> favorites) {
 		this.favorites = favorites;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", name=" + name + ", role=" + role + "]";
 	}
 
 }

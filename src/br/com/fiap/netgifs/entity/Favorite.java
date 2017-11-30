@@ -19,13 +19,13 @@ public class Favorite implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="GIF-ID")
+	@Column(name="FAVORITEID")
 	private int id;
 	@ManyToOne(optional=false)
-	@JoinColumn(name="USER-ID",referencedColumnName="USER-ID")
+	@JoinColumn(name="USERID",referencedColumnName="USERID")
 	private User user;
 	@ManyToOne(optional=false)
-	@JoinColumn(name="GIF-ID",referencedColumnName="GIF-ID")
+	@JoinColumn(name="GIFID",referencedColumnName="GIFID")
 	private Gif gif;
 	
 	public Favorite() {

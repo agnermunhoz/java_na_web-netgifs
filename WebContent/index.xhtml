@@ -4,14 +4,30 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
 
-<head>
+<h:head>
 	<title>NETGIFS</title>
-</head>
-
-<body>
-	<h1>NETGIFS</h1>
-	<h2>Seja bem vindo ao NETGIFS!</h2>
-	<a href="gifs/main.xhtml">Vamos começar?</a>
-</body>
-
+</h:head>
+<h:body>
+<div class="container">
+<header>
+   <h1>NETGIFS</h1>
+   <h2>Seja bem vindo ao NETGIFS!</h2>
+</header>	
+<article>
+	<f:view>
+		<h:form>
+			<h:panelGrid columns="2" border="0">
+				<h:outputText value="Usuário" for="txtnome"/>
+				<h:inputText id="txtnome" value="#{userBean.login}" required="true" requiredMessage="Campo obrigatório"/>
+				<h:outputText value="Senha" for="txtsenha"/>
+				<h:inputSecret id="txtsenha" value="#{userBean.password}" required="true" requiredMessage="Campo obrigatório"/>
+				<h:commandButton action="#{userBean.submit}" value="Entrar" />
+				<h:messages />
+			</h:panelGrid>
+		</h:form>
+	</f:view>
+</article>
+<footer>Fiap 30SCJ</footer>
+</div>
+</h:body>
 </html>

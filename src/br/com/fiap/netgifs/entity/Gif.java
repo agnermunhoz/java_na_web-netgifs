@@ -21,18 +21,22 @@ public class Gif  implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="GIF-ID")
+	@Column(name="GIFID")
 	private int id;
 	@Column(name="DESCRIPTION")
 	private String description;
 	@OneToOne(optional=false,fetch = FetchType.LAZY)
-    @JoinColumn(name = "IMAGE-ID",referencedColumnName="IMAGE-ID")
+    @JoinColumn(name = "IMAGEID",referencedColumnName="IMAGEID")
 	private Image image;
+	@Column(name = "IMAGEID", insertable = false, updatable = false)
+	private int imageId;
 	@OneToOne(optional=true,fetch = FetchType.LAZY)
-    @JoinColumn(name = "MINI-ID",referencedColumnName="IMAGE-ID")
+    @JoinColumn(name = "MINIID",referencedColumnName="IMAGEID")
 	private Image mini;
+	@Column(name = "MINIID", insertable = false, updatable = false)
+	private int miniId;
 	@ManyToOne(optional=false)
-	@JoinColumn(name="SESSION-ID",referencedColumnName="SESSION-ID")
+	@JoinColumn(name="SESSIONID",referencedColumnName="SESSIONID")
 	private Session session;
 	public Gif() {
 		super();
@@ -74,5 +78,16 @@ public class Gif  implements Serializable {
 	public void setSession(Session session) {
 		this.session = session;
 	}
-
+	public int getImageId() {
+		return imageId;
+	}
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
+	}
+	public int getMiniId() {
+		return miniId;
+	}
+	public void setMiniId(int miniId) {
+		this.miniId = miniId;
+	}
 }

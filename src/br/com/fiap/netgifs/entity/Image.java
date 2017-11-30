@@ -18,7 +18,7 @@ public class Image  implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="IMAGE-ID")
+	@Column(name="IMAGEID")
 	private int id;
 	@Column(name="FILE")
 	private Blob file;

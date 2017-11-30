@@ -21,7 +21,7 @@ public class Session  implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="SESSION-ID")
+	@Column(name="SESSIONID")
 	private int id;
 	@Column(name="DESCRIPTION")
 	private String description;
