@@ -22,12 +22,15 @@ public class Image  implements Serializable {
 	private int id;
 	@Column(name="FILE")
 	private Blob file;
+	@Column(name="FORMAT")
+	private String format;
 	public Image() {
 		super();
 	}
-	public Image(Blob file) {
+	public Image(Blob file, String format) {
 		this();
 		this.file = file;
+		this.format = format;
 	}
 	public int getId() {
 		return id;
@@ -41,5 +44,10 @@ public class Image  implements Serializable {
 	public void setFile(Blob file) {
 		this.file = file;
 	}
-
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
 }

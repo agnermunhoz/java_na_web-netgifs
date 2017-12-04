@@ -5,11 +5,13 @@
       xmlns:h="http://java.sun.com/jsf/html">
 
 <head>
-	<title>NETGIFS - Gif</title>
+	<title>NETGIFS - Watch</title>
 </head>
 
 <body>
-	<h:outputLabel value="Gif Form" />
+	<h:outputLabel value="#{mainBean.selectedGif.description}" />
+	<br />
+	<img src="viewimage?imageid=#{mainBean.selectedGif.imageId}" />
 </body>
 
 </html>

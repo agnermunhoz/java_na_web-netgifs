@@ -1,5 +1,6 @@
 package br.com.fiap.netgifs.entity;
 
+import java.io.InputStream;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -10,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="GIF")
@@ -25,12 +26,12 @@ public class Gif  implements Serializable {
 	private int id;
 	@Column(name="DESCRIPTION")
 	private String description;
-	@OneToOne(optional=false,fetch = FetchType.LAZY)
+	@ManyToOne(optional=false,fetch = FetchType.LAZY)
     @JoinColumn(name = "IMAGEID",referencedColumnName="IMAGEID")
 	private Image image;
 	@Column(name = "IMAGEID", insertable = false, updatable = false)
 	private int imageId;
-	@OneToOne(optional=true,fetch = FetchType.LAZY)
+	@ManyToOne(optional=true,fetch = FetchType.LAZY)
     @JoinColumn(name = "MINIID",referencedColumnName="IMAGEID")
 	private Image mini;
 	@Column(name = "MINIID", insertable = false, updatable = false)
@@ -38,6 +39,8 @@ public class Gif  implements Serializable {
 	@ManyToOne(optional=false)
 	@JoinColumn(name="SESSIONID",referencedColumnName="SESSIONID")
 	private Session session;
+	@Transient
+	private InputStream inputStream;
 	public Gif() {
 		super();
 	}
@@ -46,6 +49,15 @@ public class Gif  implements Serializable {
 		this.description = description;
 		this.image = image;
 		this.mini = mini;
+		this.session = session;
+		this.inputStream = null;
+	}
+	public Gif(String description, Session session, InputStream inputStream) {
+		this();
+		this.description = description;
+		this.inputStream = inputStream;
+		this.mini = null;
+		this.image = null;
 		this.session = session;
 	}
 	public int getId() {
@@ -90,4 +102,11 @@ public class Gif  implements Serializable {
 	public void setMiniId(int miniId) {
 		this.miniId = miniId;
 	}
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
+	}
+	
 }

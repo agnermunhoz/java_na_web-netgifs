@@ -29,12 +29,15 @@ public class Session  implements Serializable {
 	private List<Gif> gifs;
 	public Session() {
 		super();
+		this.gifs = new ArrayList<>();
+	}
+	public Session(String description) {
+		this();
+		this.description = description;
 	}
 	public Session(int id, String description) {
-		this();
+		this(description);
 		this.id = id;
-		this.description = description;
-		this.gifs = new ArrayList<>();
 	}
 	public int getId() {
 		return id;

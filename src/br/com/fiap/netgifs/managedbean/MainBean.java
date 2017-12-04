@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.el.ELContext;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import br.com.fiap.netgifs.entity.Favorite;
 import br.com.fiap.netgifs.entity.Gif;
@@ -20,6 +20,7 @@ public class MainBean {
 
 	private List<Session> sessions = null;
 	private Session selectedSession = null;
+	private Gif selectedGif = null;
 	//@ManagedProperty(value="#{userBean}") 
 	//private UserBean userBean;
 
@@ -53,11 +54,31 @@ public class MainBean {
 		return sessions;
 	}
 
+	public void setSessions(List<Session> sessions) {
+		this.sessions = sessions;
+	}
+
+	public String submit() {
+		System.out.println("Submit da gif");
+		if (selectedGif != null) System.out.println(selectedGif.getId()+" - "+selectedGif.getDescription());
+		return "watch?faces-redirect=true";
+	}
+	
 	public Session getSelectedSession() {
 		return selectedSession;
 	}
-	
-	public String selectSession() {
-		return ".";
+
+	public void setSelectedSession(Session selectedSession) {
+		this.selectedSession = selectedSession;
 	}
+	
+	public Gif getSelectedGif() {
+		return selectedGif;
+	}
+
+	public void setSelectedGif(Gif selectedGif) {
+		this.selectedGif = selectedGif;
+	}
+
+	
 }

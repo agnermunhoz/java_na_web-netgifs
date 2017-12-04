@@ -22,12 +22,12 @@ public class UserBean {
 		if (user == null) {
 			return ".";
 		}
-		return "gifs/main?faces-redirect=true";
+		return "main?faces-redirect=true";
 	}
 	public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         user = null;
-        return "/index?faces-redirect=true";
+        return "index?faces-redirect=true";
     }
 
 	public String getLogin() {
