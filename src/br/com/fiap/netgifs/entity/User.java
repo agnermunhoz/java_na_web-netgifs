@@ -29,19 +29,19 @@ public class User  implements Serializable {
 	private String password;
 	@Column(name="NAME")
 	private String name;
-	@Column(name="ROLE")
-	private String role;
+	@Column(name = "ADMIN")
+	private boolean admin = false;
 	@OneToMany(mappedBy="user", targetEntity=Favorite.class, fetch=FetchType.LAZY)
 	private List<Favorite> favorites;
 	public User() {
 		super();
 	}
-	public User(String login, String password, String name, String role) {
+	public User(String login, String password, String name, boolean admin) {
 		this();
 		this.login = login;
 		this.password = password;
 		this.name = name;
-		this.role = role;
+		this.admin = admin;
 		this.favorites = new ArrayList<>();
 	}
 	public int getId() {
@@ -68,11 +68,11 @@ public class User  implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getRole() {
-		return role;
+	public boolean isAdmin() {
+		return admin;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	public List<Favorite> getFavorites() {
 		return favorites;
@@ -82,7 +82,7 @@ public class User  implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", name=" + name + ", role=" + role + "]";
+		return "User [id=" + id + ", login=" + login + ", name=" + name + "]";
 	}
 
 }

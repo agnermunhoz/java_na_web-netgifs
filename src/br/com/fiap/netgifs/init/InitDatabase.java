@@ -26,7 +26,7 @@ public class InitDatabase {
 			GenericaDAO<User> userDAO = new GenericaDAO<>(User.class);
 			User user = userDAO.find("select u from User u where u.login = ?", "admin");
 			if (user == null) {
-				user = new User("admin", "admin", "Admin User", "admin");
+				user = new User("admin", "admin", "Admin User", true);
 				userDAO.saveOrUpdate(user);
 			}
 			System.out.println("Verificar sessions");

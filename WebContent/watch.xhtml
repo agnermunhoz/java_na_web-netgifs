@@ -1,17 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
 
-<head>
-	<title>NETGIFS - Watch</title>
-</head>
+	<ui:define name="content">
+		<p:layoutUnit position="center" header="Login">
+			<h:outputLabel value="#{mainBean.selectedGif.description}" />
+			<br />
+			<img src="viewimage?imageid=#{mainBean.selectedGif.imageId}" border="1" />
+		</p:layoutUnit>
+	</ui:define>
 
-<body>
-	<h:outputLabel value="#{mainBean.selectedGif.description}" />
-	<br />
-	<img src="viewimage?imageid=#{mainBean.selectedGif.imageId}" />
-</body>
-
-</html>
+</ui:composition>

@@ -20,7 +20,9 @@ public class MainBean {
 
 	private List<Session> sessions = null;
 	private Session selectedSession = null;
+	private Session favorite = null;
 	private Gif selectedGif = null;
+
 	//@ManagedProperty(value="#{userBean}") 
 	//private UserBean userBean;
 
@@ -41,14 +43,15 @@ public class MainBean {
 			ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 			UserBean userBean = (UserBean) elContext.getELResolver().getValue(elContext, null, "userBean");
 		    
-			session = new Session();
-			session.setId(-2);
-			session.setDescription("Favorite");
+			favorite = new Session();
+			favorite.setId(-2);
+			favorite.setDescription("Favorite");
 			List<Gif> favorites = new ArrayList<>();
 			for (Favorite f: userBean.getUser().getFavorites())
 				favorites.add(f.getGif());
-			session.setGifs(favorites);
-			sessions.add(0, session);
+			favorite.setGifs(favorites);
+			
+			sessions.add(0, favorite);
 			
 		}
 		return sessions;
@@ -62,6 +65,12 @@ public class MainBean {
 		System.out.println("Submit da gif");
 		if (selectedGif != null) System.out.println(selectedGif.getId()+" - "+selectedGif.getDescription());
 		return "watch?faces-redirect=true";
+	}
+	
+	public String submitSession() {
+		System.out.println("SubmitSession da gif");
+		if (selectedSession != null) System.out.println(selectedSession.getId()+" - "+selectedSession.getDescription());
+		return "main?faces-redirect=true";
 	}
 	
 	public Session getSelectedSession() {
@@ -78,7 +87,25 @@ public class MainBean {
 
 	public void setSelectedGif(Gif selectedGif) {
 		this.selectedGif = selectedGif;
+		
 	}
 
-	
+	public boolean isSelectedGifFavorite() {
+		if (selectedGif == null)
+			return false;
+		if (favorite == null)
+			return false;
+		return favorite.getGifs().contains(selectedGif);
+	}
+
+	public void setSelectedGifFavorite(boolean selectedGifFavorite) {
+		if (selectedGif != null) {
+			ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+			UserBean userBean = (UserBean) elContext.getELResolver().getValue(elContext, null, "userBean");
+			userBean.addFavorite(selectedGif);
+			
+			favorite.getGifs().add(selectedGif);
+		}
+	}
+
 }
