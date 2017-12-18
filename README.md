@@ -1,15 +1,15 @@
-# NETGIFS - Atividade Pr·tica
+# NETGIFS - Atividade Pr√°tica
 ## Disciplina: Java na Web
 ## Professor: Eduardo Galego
 --------------------------------------------
 
 ### Setup Inicial
-Antes de executar a aplicaÁ„o, modifique o arquivo ``src/META-INF/persistence.xml`` para as configuraÁ„os do MySql local.
+Antes de executar a aplica√ß√£o, modifique o arquivo ``src/META-INF/persistence.xml`` para as configura√ß√£os do MySql local.
 
-### CriaÁ„o de Dados de Exemplo
+### Cria√ß√£o de Dados de Exemplo
 Para executar a rotina de dados de exemplo, execute como **Java Application** a classe ``br.com.fiap.netgifs.init.InitDatabase``.
-Ser„o criados os usu·rio ``admin`` senha ``admin`` e o usu·rio ``user`` senha ``user``.
+Ser√£o criados os usu√°rio ``admin`` senha ``admin`` e o usu√°rio ``user`` senha ``user``.
 
 ### Sobre o Projeto
-A aplicaÁ„o foi desenvolvida usulizando JSF na camada de apresentaÁ„o, JPA para persistÍncia e Servlet para a exibiÁ„o das imagens salvas em banco.
-A classe do Servlet de exibiÁ„o da imagem È ``br.com.fiap.netgifs.servlet.ViewImage``, para acessar o serviÁo utilize a URL ``http://servidor:porta/contexto/private/viewimage?imageid=XX`` onde *XX* È o id da imagem no banco.
+A aplica√ß√£o foi desenvolvida utilizando JSF na camada de apresenta√ß√£o, JPA para persist√™ncia e Servlet para a exibi√ß√£o das imagens salvas em banco.
+A classe do Servlet de exibi√ß√£o da imagem √© ``br.com.fiap.netgifs.servlet.ViewImage``, para acessar o servi√ßo utilize a URL ``http://servidor:porta/contexto/private/viewimage?imageid=XX`` onde *XX* √© o id da imagem no banco.
