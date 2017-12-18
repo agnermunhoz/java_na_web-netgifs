@@ -1,13 +1,15 @@
 package br.com.fiap.netgifs.managedbean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.fiap.netgifs.entity.User;
 import br.com.fiap.netgifs.helper.GenericaDAO;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class UserRegisterMBean {
 	private User user; 
 	private int id;
@@ -16,22 +18,31 @@ public class UserRegisterMBean {
 	private String password;
 	private boolean admin = false;
 	
+	public void userRegisterMBean() {
+		this.id    = 0;
+		this.name  = "";
+		this.login = "";
+		this.password = "";
+		this.admin = false;
+	}
+	
 	public String userRegister() {
         return "userRegister";
     }
 	
-	// TODO: msg retorno
-	public String save() {
+	public void save() {
 		GenericaDAO<User> userDAO = new GenericaDAO<>(User.class);
+		String message = "";
 		if (this.id != 0) 
-			userDAO.update(new User(id, login, password, name, admin));
+			message = userDAO.update(new User(id, login, password, name, admin)) ? "Saved!" : "Oops, something went wrong....";
 		else
-			userDAO.save(new User(login, password, name, admin));	
-			
-		return "userRegister";
+			message = userDAO.save(new User(login, password, name, admin))       ? "Saved!" : "Oops, something went wrong....";	
+		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
+		userRegisterMBean();
     }
 	
-	public String search() {
+	public void search() {
 		GenericaDAO<User> userDAO = new GenericaDAO<>(User.class);
 		user = userDAO.find("select u from User u where u.login = ?", login);
 		if (user != null) {
@@ -41,16 +52,14 @@ public class UserRegisterMBean {
 			this.password = user.getPassword();
 			this.admin    = user.isAdmin();
 		}
-		return "userRegister";
     }
 	
-	// TODO: msg retorno
-	public String delete() {
+	public void delete() {
 		GenericaDAO<User> userDAO = new GenericaDAO<>(User.class);
-		user = userDAO.find(id);
-		userDAO.delete(user);
-		user = null;
-		return "userRegister";
+		user = (this.id == 0) ? userDAO.find("select u from User u where u.login = ?", login) : userDAO.find(id); // se nao tiver id preenchido busca por login
+		String message = userDAO.delete(user) ? "Deleted!" : "Oops, something went wrong....";
+		userRegisterMBean();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 	}
 	
 	public int getId() {
@@ -68,7 +77,6 @@ public class UserRegisterMBean {
 	public boolean getAdmin() {
 		return this.admin;
 	}
-	
 	
 	public void setId(int id) {
 		this.id = id;

@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
 import br.com.fiap.netgifs.entity.Gif;
@@ -49,15 +51,15 @@ public class GifRegisterMBean implements Serializable{
 		Session session = sessionDAO.find(sessionId);
 		gif.setSession(session);
 		
-		gifDAO.saveOrUpdate(gif);
+		String message = gifDAO.saveOrUpdate(gif) ? "Saved!" : "Oops, something went wrong....";
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 		newGif();
 	}
 
 	public void search() {
 		GifDAO gifDAO = new GifDAO();
-		this.description = "";
 		this.sessionId = 0;
-		gif = gifDAO.find(id);
+		gif = (this.id == 0) ? gifDAO.find("select g from Gif g where g.description = ?", description) : gifDAO.find(id);
 		if (gif != null) {
 			this.id = gif.getId();
 			this.description = gif.getDescription();
@@ -69,8 +71,9 @@ public class GifRegisterMBean implements Serializable{
 
 	public void delete() {
 		GifDAO gifDAO = new GifDAO();
-		gif = gifDAO.find(id);
-		gifDAO.delete(gif);
+		gif = (this.id == 0) ? gifDAO.find("select g from Gif g where g.description = ?", description) : gifDAO.find(id);
+		String message = gifDAO.delete(gif) ? "Deleted!" : "Oops, something went wrong....";
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 		newGif();
 	}
 

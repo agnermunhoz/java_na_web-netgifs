@@ -1,7 +1,9 @@
 package br.com.fiap.netgifs.managedbean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.fiap.netgifs.entity.Session;
 import br.com.fiap.netgifs.helper.GenericaDAO;
@@ -18,30 +20,32 @@ public class SessionRegisterMBean {
         return "sessionRegister";
     }
 	
-	// TODO: msg retorno
 	public void save() {
 		GenericaDAO<Session> sessionDAO = new GenericaDAO<>(Session.class);
+		String message = "";
 		if (this.id != 0) 
-			sessionDAO.update(new Session(id, description));
+			message = sessionDAO.update(new Session(id, description)) ? "Saved!" : "Oops, something went wrong....";
 		else
-			sessionDAO.save(new Session(description));	
+			message = sessionDAO.save(new Session(description)) ? "Saved!" : "Oops, something went wrong....";
+		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 		newSession();
     }
 	
 	public void search() {
 		GenericaDAO<Session> sessionDAO = new GenericaDAO<>(Session.class);
-		session = sessionDAO.find(id);
+		session = (this.id == 0) ? sessionDAO.find("select s from Session s where s.description = ?", description) : sessionDAO.find(id);
 		if (session != null) {
 			this.id = session.getId();
 			this.description = session.getDescription();
 		}
     }
 	
-	// TODO: msg retorno
 	public void delete() {
 		GenericaDAO<Session> sessionDAO = new GenericaDAO<>(Session.class);
-		session = sessionDAO.find(id);
-		sessionDAO.delete(session);
+		session = (this.id == 0) ? sessionDAO.find("select s from Session s where s.description = ?", description) : sessionDAO.find(id);
+		String message = sessionDAO.delete(session) ? "Deleted!" : "Oops, something went wrong....";
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 		newSession();
 	}
 	
