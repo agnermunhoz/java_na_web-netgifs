@@ -19,14 +19,20 @@ public class InitDatabase {
 		new LocalEntityManagerFactory().contextDestroyed(null);
 	}
 
-	private static void initDataBase() {
+	public static void initDataBase() {
 		System.out.println("Carga inicial de dados");
 		try {
 			System.out.println("Verificar usuário admin");
 			GenericaDAO<User> userDAO = new GenericaDAO<>(User.class);
 			User user = userDAO.find("select u from User u where u.login = ?", "admin");
 			if (user == null) {
-				user = new User("admin", "admin", "Admin User", true);
+				user = new User("admin", "admin", "Administrador", true);
+				userDAO.saveOrUpdate(user);
+			}
+			System.out.println("Verificar usuário user");
+			user = userDAO.find("select u from User u where u.login = ?", "user");
+			if (user == null) {
+				user = new User("user", "user", "Usuário", false);
 				userDAO.saveOrUpdate(user);
 			}
 			System.out.println("Verificar sessions");

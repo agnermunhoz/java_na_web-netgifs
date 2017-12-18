@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface HelperInterface<T> {
 
+	public boolean save(T reg);
+	public boolean update(T reg);
 	public boolean saveOrUpdate(T reg);
 	public boolean delete(T reg);
 	public T find(int id);

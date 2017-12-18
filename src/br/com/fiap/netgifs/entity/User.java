@@ -44,6 +44,14 @@ public class User  implements Serializable {
 		this.admin = admin;
 		this.favorites = new ArrayList<>();
 	}
+	public User(int id, String login, String password, String name, boolean admin) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.name = name;
+		this.admin = admin;
+	}
 	public int getId() {
 		return id;
 	}

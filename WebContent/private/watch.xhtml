@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+
+	<ui:define name="menu">
+		<ul>
+			<li><a href="main.xhtml">Voltar</a></li>
+		</ul>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:layoutUnit position="center" header="Gif">
+			<h:outputLabel value="#{principalMBean.selectedGif.id}" />
+			 - 
+			<h:outputLabel value="#{principalMBean.selectedGif.description}" />
+			<br />
+			<h:form id="formfavorite">
+				<h:commandButton value="Adicionar a Favoritos"
+					action="#{principalMBean.addFavorite}"
+					rendered="#{not principalMBean.selectedGifFavorite}" />
+				<h:commandButton value="Remover de Favoritos"
+					action="#{principalMBean.removeFavorite}"
+					rendered="#{principalMBean.selectedGifFavorite}" />
+
+			</h:form>
+			<br />
+			<img src="viewimage?imageid=#{principalMBean.selectedGif.imageId}"
+				border="1" />
+		</p:layoutUnit>
+	</ui:define>
+
+</ui:composition>

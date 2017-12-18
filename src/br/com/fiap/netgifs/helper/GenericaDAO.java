@@ -20,6 +20,34 @@ public class GenericaDAO<T> implements HelperInterface<T> {
 	}
 
 	@Override
+	public boolean save(T reg) {
+		try {
+			em.getTransaction().begin();
+			em.persist(reg);
+			em.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean update(T reg) {
+		try {
+			em.getTransaction().begin();
+			em.merge(reg);
+			em.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
 	public boolean saveOrUpdate(T reg) {
 		try {
 			em.getTransaction().begin();
@@ -36,9 +64,12 @@ public class GenericaDAO<T> implements HelperInterface<T> {
 	@Override
 	public boolean delete(T reg) {
 		try {
+			em.getTransaction().begin();
 			em.remove(reg);
+			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			e.printStackTrace();
 			return false;
 		}

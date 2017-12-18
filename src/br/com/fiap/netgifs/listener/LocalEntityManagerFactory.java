@@ -7,6 +7,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import br.com.fiap.netgifs.init.InitDatabase;
+
 @WebListener
 public class LocalEntityManagerFactory implements ServletContextListener {
 
@@ -24,7 +26,7 @@ public class LocalEntityManagerFactory implements ServletContextListener {
     
 	public static EntityManager createEntityManager() {
         if (emf == null) {
-            throw new IllegalStateException("Context is not initialized yet.");
+        	emf = Persistence.createEntityManagerFactory("netgifs");
         }
         return emf.createEntityManager();
     }

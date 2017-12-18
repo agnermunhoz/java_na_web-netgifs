@@ -5,31 +5,27 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
 
-	<ui:define name="header">
-		<table style="width: 100%">
-			<tr>
-				<td><h2>NETGIFS - Main Page</h2></td>
-				<td align="right"><h:outputText value="#{userBean.user.name}" /></td>
-				<td align="right" width="120px"><h:commandButton value="Logout"
-						action="#{userBean.logout}" /></td>
-			</tr>
-		</table>
-	</ui:define>
-
 	<ui:define name="menu">
-		<ul>
-			<li><a href="../user/preferences.xhtml">Preferences</a></li>
-			<li><a href="../admin/formgif.xhtml">Gifs</a></li>
-			<li><a href="../admin/formsession.xhtml">Session</a></li>
-			<li><a href="../admin/formuser.xhtml">User</a></li>
-		</ul>
+		<h:form id="adminmenu">
+			<ul>
+				<li><p:commandLink action="#{principalMBean.gifRegister}" disabled="#{not principalMBean.user.admin}">
+				Cadastro de Gifs
+				</p:commandLink></li>
+				<li><p:commandLink action="#{principalMBean.sessionRegister}" disabled="#{not principalMBean.user.admin}">
+				Cadastro de Sessões
+				</p:commandLink></li>
+				<li><p:commandLink action="#{principalMBean.userRegister}" disabled="#{not principalMBean.user.admin}">
+				Cadastro de Usuários
+				</p:commandLink></li>
+			</ul>
+		</h:form>
 		<hr></hr>
 		<h:form id="mainmenu">
 			<ul>
-				<p:repeat value="#{mainBean.sessions}" var="item">
-					<li><p:commandLink action="#{mainBean.submitSession}">
+				<p:repeat value="#{principalMBean.sessions}" var="item">
+					<li><p:commandLink action="#{principalMBean.changeSession}">
 							<f:setPropertyActionListener value="#{item}"
-								target="#{mainBean.selectedSession}" />
+								target="#{principalMBean.selectedSession}" />
 							<h:outputText value="#{item.description}" />
 						</p:commandLink></li>
 				</p:repeat>
@@ -39,13 +35,13 @@
 
 	<ui:define name="content">
 		<p:layoutUnit position="center"
-			header="#{mainBean.selectedSession.description}">
+			header="#{principalMBean.selectedSession.description}">
 			<f:view>
 				<h:form id="mainform">
-					<p:repeat value="#{mainBean.selectedSession.gifs}" var="gif">
-						<p:commandLink action="#{mainBean.submit}">
+					<p:repeat value="#{principalMBean.selectedSession.gifs}" var="gif">
+						<p:commandLink action="#{principalMBean.watchGif}">
 							<f:setPropertyActionListener value="#{gif}"
-								target="#{mainBean.selectedGif}" />
+								target="#{principalMBean.selectedGif}" />
 							<img src="viewimage?imageid=#{gif.miniId}" width="100"
 								height="100" border="1" />
 							<h:outputText value="#{gif.description}" />

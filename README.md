@@ -1,14 +1,15 @@
-# java_na_web-netgifs
+# NETGIFS - Atividade Prática
+## Disciplina: Java na Web
+## Professor: Eduardo Galego
+--------------------------------------------
 
+### Setup Inicial
+Antes de executar a aplicação, modifique o arquivo ``src/META-INF/persistence.xml`` para as configuraçãos do MySql local.
 
-Referências
+### Criação de Dados de Exemplo
+Para executar a rotina de dados de exemplo, execute como **Java Application** a classe ``br.com.fiap.netgifs.init.InitDatabase``.
+Serão criados os usuário ``admin`` senha ``admin`` e o usuário ``user`` senha ``user``.
 
-https://imasters.com.br/artigo/20180/java/criando-um-projeto-jee-usando-jpa-com-hibernate-jsf-e-mysql?trace=1519021197&source=single
-
-http://www.objectdb.com/tutorial/jpa/eclipse/web
-
-https://www.devmedia.com.br/java-web-criando-uma-tela-de-login-com-jpa-jsf-primefaces-e-mysql/32456
-
-http://tomee.apache.org/examples-trunk/injection-of-entitymanager/
-
-https://blogs.sap.com/2012/12/11/put-jpa-in-your-web-app-tomcat-eclipselink/
+### Sobre o Projeto
+A aplicação foi desenvolvida usulizando JSF na camada de apresentação, JPA para persistência e Servlet para a exibição das imagens salvas em banco.
+A classe do Servlet de exibição da imagem é ``br.com.fiap.netgifs.servlet.ViewImage``, para acessar o serviço utilize a URL ``http://servidor:porta/contexto/private/viewimage?imageid=XX`` onde *XX* é o id da imagem no banco.

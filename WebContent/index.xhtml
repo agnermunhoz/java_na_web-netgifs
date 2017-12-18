@@ -13,12 +13,12 @@
 				<h:form>
 					<h:panelGrid columns="2" border="0">
 						<h:outputText value="Usuário" for="txtnome" />
-						<h:inputText id="txtnome" value="#{userBean.login}"
+						<h:inputText id="txtnome" value="#{principalMBean.login}"
 							required="true" requiredMessage="Campo obrigatório" />
 						<h:outputText value="Senha" for="txtsenha" />
-						<h:inputSecret id="txtsenha" value="#{userBean.password}"
+						<h:inputSecret id="txtsenha" value="#{principalMBean.password}"
 							required="true" requiredMessage="Campo obrigatório" />
-						<h:commandButton action="#{userBean.submit}" value="Entrar" />
+						<h:commandButton action="#{principalMBean.doLogin}" value="Entrar" />
 						<h:messages />
 					</h:panelGrid>
 				</h:form>

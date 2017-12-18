@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.fiap.netgifs.entity.Image;
 import br.com.fiap.netgifs.helper.GenericaDAO;
 
-@WebServlet(name = "ViewImage", urlPatterns = "/viewimage")
+@WebServlet(name = "ViewImage", urlPatterns = "/private/viewimage")
 public class ViewImage extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
