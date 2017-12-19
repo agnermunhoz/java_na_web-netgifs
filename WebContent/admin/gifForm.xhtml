@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+
+	<ui:define name="menu">
+		<ul>
+			<li><a href="../private/main.xhtml">Voltar</a></li>
+		</ul>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:layoutUnit position="center" header="Cadastro de Gif">
+			<f:view>
+				<h:form id="formform" enctype="multipart/form-data">
+					<h:panelGrid columns="3" border="0">
+						<h:outputText value="Descrição" for="descricao" />
+						<h:inputText id="descricao" value="#{gifFormMBean.entity.description}" required="true"/>
+						<h:message for="descricao" />
+						
+						<h:outputText value="Sessão" for="sessao" />
+						<h:selectOneMenu id="sessao" value="#{gifFormMBean.sessionId}">
+							<f:selectItems value="#{gifFormMBean.sessions}" var="ses" itemValue="#{ses.id}" itemLabel="#{ses.description}" />
+						</h:selectOneMenu>
+						<h:message for="sessao" />
+						
+						<h:outputText value="Arquivo" for="arquivo" />
+						<h:inputFile id="arquivo" value="#{gifFormMBean.file}"
+							label="Gif" />
+						<h:message for="arquivo" />
+						
+						<h:commandButton action="#{gifFormMBean.newEntity}"
+							value="Novo" />
+						<h:commandButton action="#{gifFormMBean.saveEntity}" value="Savar" />
+					</h:panelGrid>
+				</h:form>
+				<hr />
+				<h:form id="listform">
+					<p:dataTable value="#{gifFormMBean.entities}" var="item">
+						<p:column headerText="Id" width="40">
+							<h:outputText value="#{item.id}" />
+						</p:column>
+						<p:column headerText="Descrição">
+							<h:outputText value="#{item.description}" />
+						</p:column>
+						<p:column headerText="Sessão">
+							<h:outputText value="#{item.session.description}" />
+						</p:column>
+						<p:column width="70">
+							<p:commandLink action="#{gifFormMBean.selectEntity}" update="formform">
+								<f:setPropertyActionListener value="#{item}"
+									target="#{gifFormMBean.entity}" />
+								Alterar
+							</p:commandLink>
+						</p:column>
+						<p:column width="70">
+							<p:commandLink action="#{gifFormMBean.deleteEntity}" update="listform">
+								<f:setPropertyActionListener value="#{item}"
+									target="#{gifFormMBean.entity}" />
+								Excluir
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</f:view>
+		</p:layoutUnit>
+	</ui:define>
+
+</ui:composition>

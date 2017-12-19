@@ -22,7 +22,7 @@ public class GifDAO extends GenericaDAO<Gif> {
 		try {
 			if (reg.getInputStream() != null) {
 				Image image = new Image();
-				image.setFormat("gif");
+				image.setFormat(reg.getImageFormat());
 				byte[] imgBytes = new byte[(int) reg.getInputStream().available()];
 				reg.getInputStream().read(imgBytes);
 				image.setFile(new SerialBlob(imgBytes));
@@ -50,7 +50,7 @@ public class GifDAO extends GenericaDAO<Gif> {
 				*/
 				
 				Image mini = new Image();
-				mini.setFormat("png");
+				mini.setFormat("image/png");
 				mini.setFile(new SerialBlob(os.toByteArray()));
 				
 				GenericaDAO<Image> imgDAO = new GenericaDAO<>(Image.class);

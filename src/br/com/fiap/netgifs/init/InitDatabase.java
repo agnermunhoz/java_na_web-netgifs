@@ -47,10 +47,10 @@ public class InitDatabase {
 			Gif gif = gifDAO.find(1);
 			if (gif == null) {
 				InputStream is = InitDatabase.class.getResourceAsStream("/example1.gif");
-				gif = new Gif("Kill me", session, is);
+				gif = new Gif("Kill me", session, is, "image/gif");
 				gifDAO.saveOrUpdate(gif);
 				is =  InitDatabase.class.getResourceAsStream("/example2.gif");
-				gif = new Gif("Orcas", session, is);
+				gif = new Gif("Orcas", session, is, "image/gif");
 				gifDAO.saveOrUpdate(gif);
 			}
 		} catch (Exception e) {

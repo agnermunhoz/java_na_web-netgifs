@@ -31,7 +31,8 @@ public class ViewImage extends HttpServlet {
 				InputStream is = image.getFile().getBinaryStream();
 				byte[] imgBytes = new byte[(int) image.getFile().length()];
 				is.read(imgBytes);
-				resp.setContentType("image/"+image.getFormat());
+				//resp.setContentType("image/"+image.getFormat());
+				resp.setContentType(image.getFormat());
 				ServletOutputStream out = resp.getOutputStream(); 
 				out.write(imgBytes);
 			}

@@ -33,20 +33,24 @@ public class PrincipalMBean {
 		user = userDAO.find("select u from User u where u.login = ?", login);
 		if (user == null) {
 			//TODO enviar messagem de usuário não encontrado
-			//FacesContext.getCurrentInstance().addMessage("txtnome", new FacesMessage("User not found!"));
-			return ".";
+			this.login = "";
+			this.password = "";
+			return "index?faces-redirect=true";
 		}
 		if (!user.getPassword().equals(password)) {
 			//TODO enviar messagem de password inválido
-			//FacesContext.getCurrentInstance().addMessage("txtsenha", new FacesMessage("Invalid password!"));
+			this.login = "";
+			this.password = "";
 			user = null;
-			return ".";
+			return "index?faces-redirect=true";
 		}
 		return "private/main?faces-redirect=true";
 	}
 
 	public String doLogout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		this.login = "";
+		this.password = "";
 		user = null;
 		return "../index?faces-redirect=true";
 	}
@@ -63,16 +67,17 @@ public class PrincipalMBean {
 	
 	public String gifRegister() {
 		sessions = null;
-		return "../admin/gifRegister?faces-redirect=true";
+		return "../admin/gifForm?faces-redirect=true";
 	}
 
 	public String sessionRegister() {
 		sessions = null;
-		return "../admin/sessionRegister?faces-redirect=true";
+		//return "../admin/sessionRegister?faces-redirect=true";
+		return "../admin/sessionForm?faces-redirect=true";
 	}
 
 	public String userRegister() {
-		return "../admin/userRegister?faces-redirect=true";
+		return "../admin/userForm?faces-redirect=true";
 	}
 
 	public String changeSession() {

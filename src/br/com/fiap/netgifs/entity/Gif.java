@@ -41,6 +41,8 @@ public class Gif  implements Serializable {
 	private Session session;
 	@Transient
 	private InputStream inputStream;
+	@Transient
+	private String imageFormat;
 	public Gif() {
 		super();
 	}
@@ -52,13 +54,14 @@ public class Gif  implements Serializable {
 		this.session = session;
 		this.inputStream = null;
 	}
-	public Gif(String description, Session session, InputStream inputStream) {
+	public Gif(String description, Session session, InputStream inputStream, String imageFormat) {
 		this();
 		this.description = description;
 		this.inputStream = inputStream;
 		this.mini = null;
 		this.image = null;
 		this.session = session;
+		this.imageFormat = imageFormat;
 	}
 	public int getId() {
 		return id;
@@ -107,6 +110,12 @@ public class Gif  implements Serializable {
 	}
 	public void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
+	}
+	public String getImageFormat() {
+		return imageFormat;
+	}
+	public void setImageFormat(String imageFormat) {
+		this.imageFormat = imageFormat;
 	}
 	@Override
 	public int hashCode() {

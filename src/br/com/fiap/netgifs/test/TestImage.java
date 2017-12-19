@@ -50,7 +50,7 @@ public class TestImage {
 			e.printStackTrace();
 		}
 		
-		Gif gif = new Gif("Teste de Conversão", session, is);
+		Gif gif = new Gif("Teste de Conversão", session, is, "image/gif");
 		
 		gifDAO.saveOrUpdate(gif);
 		

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+
+	<ui:define name="menu">
+		<ul>
+			<li><a href="../private/main.xhtml">Voltar</a></li>
+		</ul>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:layoutUnit position="center" header="Cadastro de Usuários">
+			<f:view>
+				<h:form id="formform">
+					<h:panelGrid columns="3" border="0">
+						<h:outputText value="Login" for="login" />
+						<h:inputText id="login" value="#{userFormMBean.entity.login}" required="true"/>
+						<h:message for="login" />
+						
+						<h:outputText value="Nome" for="nome" />
+						<h:inputText id="nome" value="#{userFormMBean.entity.name}" required="true"/>
+						<h:message for="nome" />
+						
+						<h:outputText value="Administrador" for="admin" />
+						<h:selectBooleanCheckbox type="checkbox" id="admin" value="#{userFormMBean.entity.admin}" required="true"/>
+						<h:message for="admin" />
+						
+						<h:outputText value="Senha" for="senha" />
+						<h:inputSecret id="senha" value="#{userFormMBean.entity.password}" required="true"/>
+						<h:message for="senha" />
+						
+						<h:commandButton action="#{userFormMBean.newEntity}"
+							value="Novo" />
+						<h:commandButton action="#{userFormMBean.saveEntity}" value="Savar" />
+					</h:panelGrid>
+				</h:form>
+				<hr />
+				<h:form id="listform">
+					<p:dataTable value="#{userFormMBean.entities}" var="item">
+						<p:column headerText="Id" width="40">
+							<h:outputText value="#{item.id}" />
+						</p:column>
+						<p:column headerText="Login" width="100">
+							<h:outputText value="#{item.login}" />
+						</p:column>
+						<p:column headerText="Nome">
+							<h:outputText value="#{item.name}" />
+						</p:column>
+						<p:column headerText="Admin?" width="75">
+							<h:selectBooleanCheckbox type="checkbox"
+								value="#{item.admin}" disabled="true"/>
+						</p:column>
+						<p:column width="70">
+							<p:commandLink action="#{userFormMBean.selectEntity}" update="formform">
+								<f:setPropertyActionListener value="#{item}"
+									target="#{userFormMBean.entity}" />
+								Alterar
+							</p:commandLink>
+						</p:column>
+						<p:column width="70">
+							<p:commandLink action="#{userFormMBean.deleteEntity}" update="listform">
+								<f:setPropertyActionListener value="#{item}"
+									target="#{userFormMBean.entity}" />
+								Excluir
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</f:view>
+		</p:layoutUnit>
+	</ui:define>
+
+</ui:composition>
