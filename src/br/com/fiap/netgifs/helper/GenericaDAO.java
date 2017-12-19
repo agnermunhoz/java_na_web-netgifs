@@ -27,7 +27,10 @@ public class GenericaDAO<T> implements HelperInterface<T> {
 			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			
 			e.printStackTrace();
 			return false;
 		}
@@ -41,7 +44,9 @@ public class GenericaDAO<T> implements HelperInterface<T> {
 			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			return false;
 		}
@@ -55,7 +60,9 @@ public class GenericaDAO<T> implements HelperInterface<T> {
 			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			return false;
 		}
@@ -69,7 +76,9 @@ public class GenericaDAO<T> implements HelperInterface<T> {
 			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			return false;
 		}
