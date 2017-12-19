@@ -6,15 +6,15 @@
 	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
 
 	<ui:define name="menu">
-		<h:form id="adminmenu">
+		<h:form id="adminmenu" rendered="#{principalMBean.user.admin}">
 			<ul>
-				<li><p:commandLink action="#{principalMBean.gifRegister}" disabled="#{not principalMBean.user.admin}">
+				<li><p:commandLink action="#{principalMBean.gifRegister}">
 				Cadastro de Gifs
 				</p:commandLink></li>
-				<li><p:commandLink action="#{principalMBean.sessionRegister}" disabled="#{not principalMBean.user.admin}">
+				<li><p:commandLink action="#{principalMBean.sessionRegister}" >
 				Cadastro de Sessões
 				</p:commandLink></li>
-				<li><p:commandLink action="#{principalMBean.userRegister}" disabled="#{not principalMBean.user.admin}">
+				<li><p:commandLink action="#{principalMBean.userRegister}">
 				Cadastro de Usuários
 				</p:commandLink></li>
 			</ul>
